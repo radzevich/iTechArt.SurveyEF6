@@ -14,6 +14,9 @@ namespace EF6CodeFirstApplication.entities
         [StringLength(1024)]
         public string Text { get; set; }
 
+        public int SurveyId { get; set; }
+        public Survey Survey { get; set; }
+
         public int? PageId { get; set; }
         public Page Page { get; set; }
 

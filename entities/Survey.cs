@@ -11,7 +11,7 @@ namespace EF6CodeFirstApplication.entities
         [StringLength(256)]
         public string Title { get; set; }
 
-        public int CreatorId { get; set; }
+        public int? CreatorId { get; set; }
         public virtual User Creator { get; set; }
         public DateTime CreationTime { get; set; } 
 
@@ -19,11 +19,13 @@ namespace EF6CodeFirstApplication.entities
         public virtual User Modifier { get; set; }
         public DateTime? ModificationTime { get; set; }   
 
-        public ICollection<Page> Pages { get; set; }
+        public ICollection<Question> Questions { get; set; }
+        public ICollection<CompletedSurvey> CompletedSurveys { get; set; }
 
         public Survey()
         {
-            Pages = new List<Page>();
+            Questions = new List<Question>();
+            CompletedSurveys =new List<CompletedSurvey>();
         }
     }
 }

@@ -7,9 +7,6 @@ namespace EF6CodeFirstApplication.entities
     {
         public int Id { get; set; }
 
-        public int SurveyId { get; set; }
-        public Survey Survey { get; set; }
-
         [StringLength(256)]
         public string Title { get; set; }
 
