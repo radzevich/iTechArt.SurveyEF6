@@ -1,0 +1,5 @@
+bin/*
+obj/*
+packages.config
+AssemblyInfo.cs
+EF6CodeFirstApplication.csproj
