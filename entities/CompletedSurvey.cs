@@ -10,8 +10,8 @@ namespace EF6CodeFirstApplication.entities
         public int SurveyId { get; set; }
         public Survey Survey { get; set; }
 
-        public int? CreatorId { get; set; }
-        public User Creator { get; set; }
+        public int? UserId { get; set; }
+        public User User { get; set; }
 
         public DateTime Date { get; set; }
 

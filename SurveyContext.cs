@@ -1,5 +1,3 @@
-using System;
-
 namespace EF6CodeFirstApplication
 {
     using System.Data.Entity;
@@ -9,7 +7,7 @@ namespace EF6CodeFirstApplication
     {
         static SurveyContext()
         {
-           //Database.SetInitializer(new DropCreateDatabaseAlways<SurveyContext>()); 
+            Database.SetInitializer(new DropCreateDatabaseAlways<SurveyContext>()); 
         }
 
         public SurveyContext()
@@ -27,13 +25,23 @@ namespace EF6CodeFirstApplication
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CompletedSurvey>()
-                .HasRequired(f => f.Survey)
+            modelBuilder.Entity<Survey>()
+                .HasRequired(f => f.Creator)
+                .WithRequiredDependent()
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Survey>()
+                .HasRequired(f => f.Modifier)
                 .WithRequiredDependent()
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<ReceivedAnswer>()
-                .HasRequired(f => f.Question)
+            modelBuilder.Entity<CompletedSurvey>()
+                .HasRequired(f => f.User)
+                .WithRequiredDependent()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CompletedSurvey>()
+                .HasRequired(f => f.Survey)
                 .WithRequiredDependent()
                 .WillCascadeOnDelete(false);
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using  EF6CodeFirstApplication.entities;
 
 namespace EF6CodeFirstApplication
@@ -56,7 +55,7 @@ namespace EF6CodeFirstApplication
                 var completedSurvey = new CompletedSurvey
                 {
                     Survey = survey,
-                    Creator = user,
+                    User = user,
                     Date = new DateTime(2017, 6, 3),
                 };
 
@@ -73,21 +72,7 @@ namespace EF6CodeFirstApplication
                 db.ReceivedAnswers.Add(receivedAnswer);
                 db.SaveChanges();
             }
-
-            using (var db = new SurveyContext())
-            {
-                foreach (var cs in db.Surveys)
-                {
-                    Console.WriteLine($"{cs.Title}");
-                }
-
-                foreach (var user in db.Users)
-                {
-                    Console.WriteLine($"{user.CompletedSurveys.FirstOrDefault()?.Date}");
-                }
-                Console.ReadKey();
-
-            }
         }
     }
 }
+
