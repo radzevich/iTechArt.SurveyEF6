@@ -2,46 +2,72 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Linq.Expressions;
 
 namespace EF6CodeFirstApplication.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly DbContext Context;
-        protected readonly DbSet<TEntity> SetOfEntities;
+        internal SurveyContext context;
+        internal DbSet<TEntity> dbSet;
 
-        public Repository(DbContext context)
+        public Repository(SurveyContext context)
         {
-            Context = context;
-            SetOfEntities = Context.Set<TEntity>();
+            this.context = context;
+            this.dbSet = context.Set<TEntity>();
         }
 
-        public void Create(TEntity entityItem)
+        public void Insert(TEntity entityToInsert)
         {
-            SetOfEntities.Add(entityItem);
-            Context.SaveChanges();
+            dbSet.Add(entityToInsert);
         }
 
-        public IEnumerable<TEntity> Read()
+        public virtual IEnumerable<TEntity> Get(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
         {
-            return SetOfEntities.AsNoTracking().ToList();
+            IQueryable<TEntity> query = dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            query = includeProperties.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                                     .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            return query.ToList();
         }
 
-        public IEnumerable<TEntity> Read(Func<TEntity, bool> predicate)
+        public virtual TEntity GetById(object id)
         {
-            return Context.Set<TEntity>().Where(predicate);
+            return dbSet.Find(id);
         }
 
-        public void Remove(TEntity item)
+        public virtual void Delete(object id)
         {
-            SetOfEntities.Remove(item);
-            Context.SaveChanges();
+            TEntity entityToDelete = dbSet.Find(id);
+            Delete(entityToDelete);
         }
 
-        public void Update(TEntity item)
+        public void Delete(TEntity entityToDelete)
         {
-            Context.Entry(item).State = EntityState.Modified;
-            Context.SaveChanges();
+            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                dbSet.Attach(entityToDelete);
+            }
+            dbSet.Remove(entityToDelete);
+        }
+
+        public void Update(TEntity entityToUpdate)
+        {
+            dbSet.Attach(entityToUpdate);
+            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }

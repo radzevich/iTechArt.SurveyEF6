@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace EF6CodeFirstApplication.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        void Create(TEntity entityItem);
-        IEnumerable<TEntity> Read();
-        IEnumerable<TEntity> Read(Func<TEntity, bool> predicate);
-        void Remove(TEntity entityItem);
-        void Update(TEntity entityItem);
+        void Insert(TEntity entityToInsert);
+
+        TEntity GetById(object id);
+
+        IEnumerable<TEntity> Get(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "");
+
+        void Delete(object id);
+        void Delete(TEntity entityToDelete);
+        void Update(TEntity entityToUpdate);
     }
 }
