@@ -19,8 +19,8 @@ namespace EF6CodeFirstApplication.entities
         public virtual User Modifier { get; set; }
         public DateTime? ModificationTime { get; set; }   
 
-        public ICollection<Question> Questions { get; set; }
-        public ICollection<CompletedSurvey> CompletedSurveys { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<CompletedSurvey> CompletedSurveys { get; set; }
 
         public Survey()
         {

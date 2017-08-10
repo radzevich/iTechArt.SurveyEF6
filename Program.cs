@@ -74,20 +74,20 @@ namespace EF6CodeFirstApplication
                 db.SaveChanges();
             }
 
-            //using (var db = new SurveyContext())
-            //{
-            //    foreach (var cs in db.Surveys)
-            //    {
-            //        Console.WriteLine($"{cs.Title}");
-            //    }
+            using (var db = new SurveyContext())
+            {
+                foreach (var cs in db.Surveys)
+                {
+                    Console.WriteLine($"{cs.Title}");
+                }
 
-            //    foreach (var user in db.Users)
-            //    {
-            //        Console.WriteLine($"{user.CompletedSurveys.FirstOrDefault()?.Date}");
-            //    }
-            //    Console.ReadKey();
+                foreach (var user in db.Users)
+                {
+                    Console.WriteLine($"{user.CompletedSurveys.FirstOrDefault()?.Date}");
+                }
+                Console.ReadKey();
 
-            //}
+            }
         }
     }
 }

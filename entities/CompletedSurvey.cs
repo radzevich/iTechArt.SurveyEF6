@@ -8,14 +8,14 @@ namespace EF6CodeFirstApplication.entities
         public int Id { get; set; }
 
         public int SurveyId { get; set; }
-        public virtual Survey Survey { get; set; }
+        public Survey Survey { get; set; }
 
         public int? CreatorId { get; set; }
-        public virtual User Creator { get; set; }
+        public User Creator { get; set; }
 
         public DateTime Date { get; set; }
 
-        public ICollection<ReceivedAnswer> ReceivedAnswers { get; set; }
+        public virtual ICollection<ReceivedAnswer> ReceivedAnswers { get; set; }
 
         public CompletedSurvey()
         {

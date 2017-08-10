@@ -10,7 +10,7 @@ namespace EF6CodeFirstApplication.entities
         [StringLength(256)]
         public string Title { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
 
         public Page()
         {

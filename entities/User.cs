@@ -6,8 +6,8 @@ namespace EF6CodeFirstApplication.entities
     {
         public int Id { get; set; }
 
-        public ICollection<Survey> Surveys { get; set; }
-        public ICollection<CompletedSurvey> CompletedSurveys { get; set; }
+        public virtual ICollection<Survey> Surveys { get; set; }
+        public virtual ICollection<CompletedSurvey> CompletedSurveys { get; set; }
 
         public User()
         {

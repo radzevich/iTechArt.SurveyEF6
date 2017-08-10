@@ -9,7 +9,7 @@ namespace EF6CodeFirstApplication
     {
         static SurveyContext()
         {
-           Database.SetInitializer(new DropCreateDatabaseAlways<SurveyContext>()); 
+           //Database.SetInitializer(new DropCreateDatabaseAlways<SurveyContext>()); 
         }
 
         public SurveyContext()
@@ -17,13 +17,13 @@ namespace EF6CodeFirstApplication
         {
         }
 
-        public virtual DbSet<Survey> Surveys { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<Page> Pages { get; set; }
-        public virtual DbSet<AnswerOption> AnswerOptions { get; set; }
-        public virtual DbSet<ReceivedAnswer> ReceivedAnswers { get; set; }
-        public virtual DbSet<CompletedSurvey> CompletedSurveys { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Page> Pages { get; set; }
+        public DbSet<AnswerOption> AnswerOptions { get; set; }
+        public DbSet<ReceivedAnswer> ReceivedAnswers { get; set; }
+        public DbSet<CompletedSurvey> CompletedSurveys { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

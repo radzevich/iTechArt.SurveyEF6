@@ -20,8 +20,8 @@ namespace EF6CodeFirstApplication.entities
         public int? PageId { get; set; }
         public Page Page { get; set; }
 
-        public ICollection<AnswerOption> AnswerOptions { get; set; }
-        public ICollection<ReceivedAnswer> ReceivedAnswers { get; set; }
+        public virtual ICollection<AnswerOption> AnswerOptions { get; set; }
+        public virtual ICollection<ReceivedAnswer> ReceivedAnswers { get; set; }
 
         public Question()
         {
